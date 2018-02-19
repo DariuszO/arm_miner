@@ -52,7 +52,7 @@ Application::run();
 
 ## 程序初始化
 
-```
+```c++
 //判断是否已完成初始化
 if (m_initialized)
 	throw ApplicationException("Application already initialized.");
@@ -91,7 +91,7 @@ LOG_TRACE(logger) << "Application initialized.\n";
 
 ## MasterStat初始化
 
-```
+```c++
 //MAX_SLAVE_COUNT为4
 for (int slaveId = 0; slaveId < MAX_SLAVE_COUNT; slaveId++)
 	//SlaveStat初始化
@@ -103,7 +103,7 @@ dummySlave.init(0);
 
 SlaveStat初始化
 
-```
+```c++
 slaveId = _slaveId;
 hasData = false;
 //msSpiTx、msSpiRxOk、msSpiRxError类型均为StatCounter32
@@ -135,7 +135,7 @@ dummyBoard.init(0, 0);
 
 BoardStat初始化
 
-```
+```c++
 this->boardId  = boardId;
 this->boardNum = boardNum;
 memset(&info, 0, sizeof(info));
@@ -165,7 +165,7 @@ dummyPwcChip.init(&SlaveStat::dummyBoard, 0, 0);
 
 PwcStat初始化
 
-```
+```c++
 parentBoard   = _parentBoard;
 spiId         = _spiId;
 spiSeq        = _spiSeq;
@@ -183,7 +183,7 @@ quickTest.clear();
 
 ChipStat初始化
 
-```
+```c++
 parentBoard   = _parentBoard;
 spiId         = _spiId;
 spiSeq        = _spiSeq;
@@ -202,7 +202,7 @@ restarts.clear();
 
 ## CpuInfo初始化
 
-```
+```c++
 //读取/proc/cpuinfo
 const char* fileName = "/proc/cpuinfo";
 FILE* fp = fopen(fileName, "r");
@@ -255,7 +255,7 @@ else {
 
 ## GpioManager初始化
 
-```
+```c++
 //树莓派和普通电脑不一样的地方在于它还带了17个可编程的GPIO
 //（General Purpose Input/Output），可以用来驱动各种外设
 //GPIO，即General Purpose Input Output，通用输入输出，也称总线扩展器
@@ -340,7 +340,7 @@ else {
 
 createPin
 
-```
+```c++
 switch (g_cpuInfo.cpuType)
 {
 //RaspberryPi
@@ -355,8 +355,7 @@ default:
 
 ## AppRegistry初始化
 
-```
-
+```c++
 ```
 
 
