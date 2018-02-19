@@ -1,4 +1,4 @@
-# om-miner(01)-sm-miner-master main入口及初始化
+# om-miner(01) sm-miner-master main入口及初始化
 
 ## 编译
 
