@@ -15,6 +15,7 @@ make -j8
 
 //sm-miner-master运行
 ./sm-miner-master -psu_v 48 -osc 50 -log_chip_stat
+//需在ARM平台下运行
 
 //安装arm-none-eabi-g++
 add-apt-repository ppa:team-gcc-arm-embedded/ppa
@@ -28,6 +29,7 @@ make -j8
 
 //sm-miner-slave运行
 ./exe/sm-miner-slave.elf
+//需在ARM平台下运行
 ```
 
 ## sm-miner-master main入口
@@ -353,17 +355,48 @@ default:
 //代码位置sm-miner-master/src/hw/GpioManager.cpp
 ```
 
-## AppRegistry初始化
+## AppRegistry初始化（即AppComponent初始化）
 
 ```c++
+//是否已完成初始化
+if (isInitialized())
+	throw ApplicationException("Application component has been already initialized.");
+//此处doInit即：GpioPolling::doInit()、EventManager::doInit()和StratumPool::doInit()
+//源自ApplicationImpl::ApplicationImpl()构造函数中：m_eventManager(m_appRegistry)、m_gpioPolling(m_appRegistry)和m_stratumPool(m_appRegistry)
+doInit(config);
+m_initialized = true;
+//代码位置sm-miner-master/src/app/AppComponent.h
 ```
 
+```c++
+void GpioPolling::doInit(const Config& /*config*/)
+{
+    return;
+    LOG_TRACE(logger) << "Initializing GpioPolling manager...\n";
+    ledG.init(g_gpioManager.pinLedG);
+    ledR.init(g_gpioManager.pinLedR);
+    key0.init(g_gpioManager.pinKey0);
+    key1.init(g_gpioManager.pinKey1);
+}
+//代码位置sm-miner-master/src/env/GpioPolling.cpp
+
+void EventManager::doInit(const Config& config)
+{
+    LOG_TRACE(logger) << "Initializing Event Manager...\n";
+    m_eventFilePath = config.eventFilePath;
+}
+//代码位置sm-miner-master/src/events/EventManager.cpp
+
+void StratumPool::doInit(const Config& config)
+{
+    LOG_TRACE(logger) << "Initializing Pool...\n";
+    m_poolConfig = config.poolConfig;
+    m_totalPoolTimer.start();
+}
+//代码位置sm-miner-master/src/pool/StratumPool.cpp
+```
 
 ## 参考文档
 
 * [树莓派 40Pin 引脚对照表](http://shumeipai.nxez.com/raspberry-pi-pins-version-40)
 * [树莓派GPIO的编号规范](http://shumeipai.nxez.com/2014/10/18/raspberry-pi-gpio-port-naming.html)
-
-
-
-
