@@ -32,7 +32,7 @@ make -j8
 
 ## sm-miner-master main入口
 
-```
+```c++
 //解析命令行
 Application::parseCommandLine(argc, argv);
 if (Application::config()->showUsage)
