@@ -83,6 +83,35 @@ uint8_t GpioPinPi::pinToGpio(uint8_t pinNumber)
 ![](pinToGpio.jpg)
 更详细内容参考：[树莓派---GPIO应用详解](https://www.jianshu.com/p/f31b90cc756f)
 
+## 其他
+
+```c++
+GpioPinPi::GpioPinPi(uint8_t _gpioNumber, bool isInput)
+	: gpioNumber(_gpioNumber)
+{
+	//设置引脚为输入或输出模式
+	if (isInput)
+		bcm2835_gpio_fsel(gpioNumber, BCM2835_GPIO_FSEL_OUTP);
+	else
+		bcm2835_gpio_fsel(gpioNumber, BCM2835_GPIO_FSEL_INPT);
+}
+
+//驱动设备GPIO.HIGH或GPIO.LOW
+void GpioPinPi::set(bool value) const
+{
+	if (value)
+		bcm2835_gpio_write(gpioNumber, HIGH);
+	else
+		bcm2835_gpio_write(gpioNumber, LOW);
+}
+
+//读取设备
+uint8_t GpioPinPi::read() const
+{
+	return bcm2835_gpio_lev(gpioNumber);
+}
+```
+
 ## 参考文档
 
 * [树莓派学习笔记——I2C PCF8574 BCM2835 Library](http://blog.csdn.net/xukai871105/article/details/14109211)
