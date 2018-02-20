@@ -1,4 +1,4 @@
-# om-miner00-arm嵌入式入门基础
+# om-miner(00) arm嵌入式入门基础
 
 ## 安装QEMU
 
