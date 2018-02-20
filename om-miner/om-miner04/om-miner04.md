@@ -1,4 +1,4 @@
-# om-miner(03) GpioManager
+# om-miner(04) GpioManager
 
 ## GpioManager定义
 
@@ -36,6 +36,9 @@ public:
 };
 extern GpioManager g_gpioManager;
 ```
+
+![](pinToGpio.jpg)
+更详细内容参考：[树莓派---GPIO应用详解](https://www.jianshu.com/p/f31b90cc756f)
 
 ## GpioManager实现
 
