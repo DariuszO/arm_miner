@@ -78,6 +78,7 @@ uint8_t GpioPinPi::pinToGpio(uint8_t pinNumber)
 	//printf("GpioPinPi: map pin %u to gpio %u\n", pinNumber, gpioNumber);
     return gpioNumber;
 }
+```
 
 ![](pinToGpio.jpg)
 更详细内容参考：[树莓派---GPIO应用详解](https://www.jianshu.com/p/f31b90cc756f)
